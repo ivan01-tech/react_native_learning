@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState} from 'react';
 import {
   StyleSheet,
@@ -8,7 +9,12 @@ import {
   Alert,
   TouchableOpacity,
   ActivityIndicator,
+  StatusBar,
+  Linking,
 } from 'react-native';
+import StyleSheetApp from './src/StyleSheet';
+import FlexBox from './src/FlexBox';
+import ScrollViewComp from './src/ScrollView';
 
 const Separator = () => <View style={styles.separator} />;
 
@@ -16,8 +22,21 @@ const App = () => {
   const [stopIndicator, setstopIndicator] = useState<boolean>(false);
   return (
     <>
-      <SafeAreaView style={styles.container}>
-        <View>
+      <SafeAreaView style={styles.container1}>
+      <ScrollViewComp></ScrollViewComp>
+        {/* <View style={styles.container}>
+          <View style={styles.text1}>
+            <Text>Text1</Text>
+          </View>
+
+          <View style={styles.text1}>
+            <Text>Text2</Text>
+          </View>
+          <View style={styles.text1}>
+            <Text>Text3</Text>
+          </View>
+        </View> */}
+        {/* <View>
           <Text style={styles.title}>
             The title and onPress handler are required. It is recommended to set
             accessibilityLabel to help make your app usable by everyone.
@@ -99,16 +118,48 @@ const App = () => {
             <Text>You stopped it</Text>
           )}
         </View>
+
+        <StyleSheetApp />
+        <FlexBox />
+
+        <StatusBar barStyle="light-content" backgroundColor="#57446798" />
+        <View>
+          <View style={styles.body}>
+            <Text>Hello world !</Text>
+          </View>
+          <View style={styles.button}>
+            <Button
+              onPress={() => Linking.openURL('https://youtube.com')}
+              title="Link to the First App"
+            />
+          </View>
+        </View> */}
       </SafeAreaView>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  text1: {
+    width: 100,
+    height: 100,
+    backgroundColor: 'red',
+    display: 'flex',
+    margin: 10,
+    color: 'white',
     justifyContent: 'center',
-    marginHorizontal: 16,
+    alignItems: 'center',
+  },
+  container: {
+    marginTop: StatusBar.currentHeight,
+  },
+  container1: {
+    flex: 1,
+    backgroundColor: 'blue',
+    marginTop: StatusBar.currentHeight,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'stretch',
   },
   horizontal: {
     flexDirection: 'row',
@@ -145,45 +196,13 @@ const styles = StyleSheet.create({
     borderBottomColor: '#737373',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
+  body: {backgroundColor: '#AEAE', alignItems: 'center'},
+  button: {
+    padding: 10,
+    display: 'flex',
+    justifyContent: 'center',
+    margin: 'auto',
+  },
 });
 
 export default App;
-
-// import React from 'react';
-// import StyleSheetApp from './src/StyleSheet';
-// import FlexBox from './src/FlexBox';
-// // import {Button, Linking, StatusBar, StyleSheet, Text, View} from 'react-native';
-
-// function App(): JSX.Element {
-//   return (
-//     <>
-//       {/* <StyleSheetApp /> */}
-//       {/* <FlexBox /> */}
-
-//       {/* <StatusBar barStyle="light-content" backgroundColor="#57446798" />
-//       <View>
-//         <View style={styles.body}>
-//           <Text>Hello world !</Text>
-//         </View>
-//         <View style={styles.button}>
-//           <Button
-//             onPress={() => Linking.openURL('https://youtube.com')}
-//             title="Link to the First App"
-//           />
-//         </View>
-//       </View> */}
-//     </>
-//   );
-// }
-
-// // const styles = StyleSheet.create({
-// //   body: {backgroundColor: '#AEAE', alignItems: 'center'},
-// //   button: {
-// //     padding: 10,
-// //     display: 'flex',
-// //     justifyContent: 'center',
-// //     margin: 'auto',
-// //   },
-// // });
-
-// export default App;
