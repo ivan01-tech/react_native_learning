@@ -1,20 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Button,
-  View,
-  SafeAreaView,
-  Text,
-  Alert,
-  TouchableOpacity,
-  ActivityIndicator,
-  StatusBar,
-  Linking,
-} from 'react-native';
-import StyleSheetApp from './src/StyleSheet';
-import FlexBox from './src/FlexBox';
-import ScrollViewComp from './src/ScrollView';
+import {StyleSheet, View, SafeAreaView, StatusBar} from 'react-native';
+import TextInputComp from './src/components/Input';
 
 const Separator = () => <View style={styles.separator} />;
 
@@ -22,9 +9,12 @@ const App = () => {
   const [stopIndicator, setstopIndicator] = useState<boolean>(false);
   return (
     <>
-      <SafeAreaView style={styles.container1}>
-      <ScrollViewComp></ScrollViewComp>
-        {/* <View style={styles.container}>
+      {/* <SafeAreaView style={styles.container1}> */}
+      <TextInputComp />
+      {/* <ScrollViewComp />
+      
+      */}
+      {/* <View style={styles.container}>
           <View style={styles.text1}>
             <Text>Text1</Text>
           </View>
@@ -36,7 +26,7 @@ const App = () => {
             <Text>Text3</Text>
           </View>
         </View> */}
-        {/* <View>
+      {/* <View>
           <Text style={styles.title}>
             The title and onPress handler are required. It is recommended to set
             accessibilityLabel to help make your app usable by everyone.
@@ -134,7 +124,7 @@ const App = () => {
             />
           </View>
         </View> */}
-      </SafeAreaView>
+      {/* </SafeAreaView> */}
     </>
   );
 };

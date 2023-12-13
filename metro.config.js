@@ -1,5 +1,5 @@
 const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
-
+// 17h58 : 10dec , 1h30
 /**
  * Metro configuration
  * https://facebook.github.io/metro/docs/configuration
