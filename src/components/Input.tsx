@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import {
+  Alert,
   Button,
   GestureResponderEvent,
   Pressable,
   StyleSheet,
   Text,
   TextInput,
+  ToastAndroid,
   TouchableHighlight,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -42,14 +44,53 @@ const TextInputComp = ({}: Props) => {
           disabled={false}
           color={'red'}
           title="Show Text"
-          onPress={onpressHandler}
+          onPress={() => {
+            Alert.alert(
+              'Warning !',
+              'You just clicked the button',
+              [
+                {
+                  text: 'OK',
+                  onPress: () => {
+                    console.warn('Alert you clicked ok button');
+                  },
+                },
+                {
+                  text: 'cancel',
+                  onPress: () => {
+                    console.warn('Alert you clicked cancel button');
+                  },
+                },
+                {
+                  text: 'not sure at all',
+                  onPress: () => {
+                    console.warn('Alert you not sure btn ok button');
+                  },
+                },
+              ].reverse(),
+              {
+                cancelable: true,
+                onDismiss: () => {
+                  console.warn('Alert');
+                },
+              },
+            );
+          }}
         />
 
         <TouchableOpacity
           style={styles.button}
           disabled={false}
           activeOpacity={0.5}
-          onPress={onpressHandler}>
+          onPress={() => {
+            ToastAndroid.showWithGravityAndOffset(
+              'Press button Toast',
+              ToastAndroid.LONG,
+              ToastAndroid.TOP,
+              103,
+              201,
+            );
+          }}>
           <Text style={styles.text}>{' TouchableOpacity '}</Text>
         </TouchableOpacity>
 
