@@ -1,8 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
-  Alert,
   Button,
   GestureResponderEvent,
+  Modal,
   Pressable,
   StyleSheet,
   Text,
@@ -18,7 +19,7 @@ type Props = {};
 
 const TextInputComp = ({}: Props) => {
   const [name, _setName] = useState('');
-
+  const [showModal, setModal] = useState(false);
   const onpressHandler = function (e: GestureResponderEvent) {
     console.log('event : ', e.target);
   };
@@ -39,42 +40,73 @@ const TextInputComp = ({}: Props) => {
         />
       </View>
 
+      <Modal
+        visible={showModal}
+        animationType="slide"
+        onRequestClose={() => setModal(prev => !prev)}
+        transparent>
+        <View
+          style={{
+            backgroundColor: '#00000090',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            padding: 10,
+            paddingTop: 100,
+          }}>
+          <View
+            style={{
+              backgroundColor: '#ffffff',
+              padding: 10,
+            }}>
+            <Text>
+              {' '}
+              Here we go , we must Lorem ipsum dolor sit amet consectetur
+              adipisicing elit. Voluptatibus consequuntur voluptatum molestiae
+              doloribus magni magnam quas, nesciunt nihil harum, laboriosam sunt
+              cum nobis illo ipsam nostrum eum autem laborum. Ullam!
+            </Text>
+          </View>
+        </View>
+      </Modal>
+
       <View style={styles.bodyFlex}>
         <Button
           disabled={false}
           color={'red'}
           title="Show Text"
           onPress={() => {
-            Alert.alert(
-              'Warning !',
-              'You just clicked the button',
-              [
-                {
-                  text: 'OK',
-                  onPress: () => {
-                    console.warn('Alert you clicked ok button');
-                  },
-                },
-                {
-                  text: 'cancel',
-                  onPress: () => {
-                    console.warn('Alert you clicked cancel button');
-                  },
-                },
-                {
-                  text: 'not sure at all',
-                  onPress: () => {
-                    console.warn('Alert you not sure btn ok button');
-                  },
-                },
-              ].reverse(),
-              {
-                cancelable: true,
-                onDismiss: () => {
-                  console.warn('Alert');
-                },
-              },
-            );
+            setModal(prev => !prev);
+            //   Alert.alert(
+            //     'Warning !',
+            //     'You just clicked the button',
+            //     [
+            //       {
+            //         text: 'OK',
+            //         onPress: () => {
+            //           console.warn('Alert you clicked ok button');
+            //         },
+            //       },
+            //       {
+            //         text: 'cancel',
+            //         onPress: () => {
+            //           console.warn('Alert you clicked cancel button');
+            //         },
+            //       },
+            //       {
+            //         text: 'not sure at all',
+            //         onPress: () => {
+            //           console.warn('Alert you not sure btn ok button');
+            //         },
+            //       },
+            //     ].reverse(),
+            //     {
+            //       cancelable: true,
+            //       onDismiss: () => {
+            //         console.warn('Alert');
+            //       },
+            //     },
+            //   );
           }}
         />
 
@@ -83,15 +115,16 @@ const TextInputComp = ({}: Props) => {
           disabled={false}
           activeOpacity={0.5}
           onPress={() => {
+            // to be able to set the position of the button
             ToastAndroid.showWithGravityAndOffset(
-              'Press button Toast',
+              'Press button showWithGravity',
               ToastAndroid.LONG,
               ToastAndroid.TOP,
-              103,
-              201,
+              25,
+              50,
             );
           }}>
-          <Text style={styles.text}>{' TouchableOpacity '}</Text>
+          <Text style={styles.text}>{'TouchableOpacity '}</Text>
         </TouchableOpacity>
 
         <TouchableHighlight

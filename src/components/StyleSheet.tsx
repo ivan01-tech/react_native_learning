@@ -7,7 +7,6 @@ const StyleSheetApp = () => {
   return (
     <View style={styles.body}>
       <Text>StyleSheet</Text>
-
       <Button title="Change the name" />
     </View>
   );
@@ -22,7 +21,6 @@ const styles = StyleSheet.create({
     borderWidth: 10,
     gap: 10,
     borderColor: 'pink',
-
     height: 150,
   },
   button: {
