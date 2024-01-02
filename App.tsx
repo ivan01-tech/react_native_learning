@@ -1,31 +1,112 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import 'react-native-gesture-handler';
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+
 import React, {useState} from 'react';
-import {StyleSheet, View, SafeAreaView, StatusBar} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  SafeAreaView,
+  StatusBar,
+  Text,
+  Pressable,
+} from 'react-native';
 import TextInputComp from './src/components/Input';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Screen} from 'react-native-screens';
 
 const Separator = () => <View style={styles.separator} />;
+type RootStackParamList = {
+  Home: undefined;
+  ScreenA: {userId: string};
+  ScreenB: {name: string};
+  Profile: {userId: string};
+};
+type PropsA = NativeStackScreenProps<RootStackParamList, 'ScreenA'>;
+type PropsB = NativeStackScreenProps<RootStackParamList, 'ScreenB'>;
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+const ScreenA = function ({navigation, route}: PropsA) {
+  return (
+    <View style={styles.body}>
+      <Text style={styles.title}>Screen B {route.params.userId}</Text>
+
+      <Text>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus
+        consequuntur placeat nemo sunt ea nisi reiciendis temporibus aut
+        praesentium corrupti officiis deleniti expedita recusandae fugiat, quas
+        minima atque provident consectetur.
+      </Text>
+
+      <Pressable
+        style={styles.button}
+        android_ripple={{color: '#fff'}}
+        onPress={() => {
+          navigation.navigate('ScreenB', {name: 'Ivan Silatsa'});
+        }}>
+        <Text>Got to the screen B</Text>
+      </Pressable>
+    </View>
+  );
+};
+
+const ScreenB = function ({navigation, route}: PropsB) {
+  return (
+    <View style={styles.body}>
+      <Text style={styles.title}>Screen B {route.params.name}</Text>
+      <Text>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus
+        consequuntur placeat nemo sunt ea nisi reiciendis temporibus aut
+        praesentium corrupti officiis deleniti expedita recusandae fugiat, quas
+        minima atque provident consectetur.
+      </Text>
+      <Pressable
+        android_ripple={{color: '#fff'}}
+        style={styles.button}
+        onPress={() => {
+          navigation.navigate('ScreenA', {userId: '1003'});
+        }}>
+        <Text>Got to the screen A</Text>
+      </Pressable>
+    </View>
+  );
+};
 
 const App = () => {
   const [stopIndicator, setstopIndicator] = useState<boolean>(false);
   return (
-    <>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="ScreenA"
+          component={ScreenA}
+          initialParams={{userId: '345'}}
+        />
+        <Stack.Screen
+          name="ScreenB"
+          component={ScreenB}
+          options={{
+            header: () => null,
+          }}
+          initialParams={{name: 'Ivan '}}
+        />
+        <Stack.Screen name="Home" component={TextInputComp} />
+      </Stack.Navigator>
       {/* <SafeAreaView style={styles.container1}> */}
-      <TextInputComp />
-      {/* <ScrollViewComp />
-      
-      */}
+      {/* <TextInputComp /> */}
       {/* <View style={styles.container}>
-          <View style={styles.text1}>
-            <Text>Text1</Text>
-          </View>
+        <View style={styles.text1}>
+          <Text>Text1</Text>
+        </View>
 
-          <View style={styles.text1}>
-            <Text>Text2</Text>
-          </View>
-          <View style={styles.text1}>
-            <Text>Text3</Text>
-          </View>
-        </View> */}
+        <View style={styles.text1}>
+          <Text>Text2</Text>
+        </View>
+        <View style={styles.text1}>
+          <Text>Text3</Text>
+        </View>
+      </View> */}
       {/* <View>
           <Text style={styles.title}>
             The title and onPress handler are required. It is recommended to set
@@ -125,7 +206,7 @@ const App = () => {
           </View>
         </View> */}
       {/* </SafeAreaView> */}
-    </>
+    </NavigationContainer>
   );
 };
 

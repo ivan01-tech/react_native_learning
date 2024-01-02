@@ -1,3 +1,4 @@
+// import android.os.Bundle;
 package com.FirstApp;
 
 import com.facebook.react.ReactActivity;
@@ -29,4 +30,9 @@ public class MainActivity extends ReactActivity {
         // If you opted-in for the New Architecture, we enable the Fabric Renderer.
         DefaultNewArchitectureEntryPoint.getFabricEnabled());
   }
+
+  // @Override
+  // protected void onCreate(Bundle savedInstanceState) {
+  //   super.onCreate(null);
+  // }
 }
