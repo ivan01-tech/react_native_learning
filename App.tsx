@@ -1,7 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import 'react-native-gesture-handler';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import React, {useState} from 'react';
 import {StyleSheet, View, StatusBar, Text, Pressable} from 'react-native';
 import TextInputComp from './src/components/Input';
@@ -12,6 +14,10 @@ import {
   createBottomTabNavigator,
   useBottomTabBarHeight,
 } from '@react-navigation/bottom-tabs';
+import {PaperProvider} from 'react-native-paper';
+import ScreenA from './src/screen/ScreenA';
+import ScreenB from './src/screen/ScreenB';
+import {createMaterialBottomTabNavigator} from 'react-native-paper/react-navigation';
 
 const Separator = () => <View style={styles.separator} />;
 type RootStackParamList = {
@@ -25,58 +31,59 @@ type RootTabParamList = {
   ScreenC: undefined;
   ScreenD: undefined;
 };
-const Tab = createBottomTabNavigator<RootTabParamList>();
+const Tab = createBottomTabNavigator<RootStackParamList>();
 type PropsA = NativeStackScreenProps<RootStackParamList>;
 type PropsB = NativeStackScreenProps<RootStackParamList, 'ScreenB', 'ScreenA'>;
 type PropsTabBottomA = ScreenStackProps;
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const ScreenA = function () {
-  const {navigation, route} = useNavigation<PropsA>();
-  return (
-    <View style={styles.body}>
-      <Text style={styles.title}>Screen B </Text>
+// const ScreenA = function () {
+//   const {navigation, route} = useNavigation<PropsA>();
+//   return (
+//     <View style={styles.body}>
+//       <Text style={styles.title}>Screen B </Text>
 
-      <Text>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus
-        consequuntur placeat nemo sunt ea nisi reiciendis temporibus aut
-        praesentium corrupti officiis deleniti expedita recusandae fugiat, quas
-        minima atque provident consectetur.
-      </Text>
+//       <Text>
+//         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus
+//         consequuntur placeat nemo sunt ea nisi reiciendis temporibus aut
+//         praesentium corrupti officiis deleniti expedita recusandae fugiat, quas
+//         minima atque provident consectetur.
+//       </Text>
 
-      <Pressable
-        style={styles.button}
-        android_ripple={{color: '#fff'}}
-        onPress={() => {
-          navigation.navigate('ScreenB', {name: 'Ivan'});
-        }}>
-        <Text>Got to the screen B</Text>
-      </Pressable>
-    </View>
-  );
-};
+//       <Pressable
+//         style={styles.button}
+//         android_ripple={{color: '#fff'}}
+//         onPress={() => {
+//           navigation.navigate('ScreenB', {name: 'Ivan'});
+//         }}>
+//         <Text>Got to the screen B</Text>
+//       </Pressable>
+//     </View>
+//   );
+// };
 
-const ScreenB = function ({navigation, route}: PropsB) {
-  return (
-    <View style={styles.body}>
-      <Text style={styles.title}>Screen B {route.params.name}</Text>
-      <Text>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus
-        consequuntur placeat nemo sunt ea nisi reiciendis temporibus aut
-        praesentium corrupti officiis deleniti expedita recusandae fugiat, quas
-        minima atque provident consectetur.
-      </Text>
-      <Pressable
-        android_ripple={{color: '#fff'}}
-        style={styles.button}
-        onPress={() => {
-          navigation.navigate('ScreenA', {userId: '1003'});
-        }}>
-        <Text>Got to the screen A</Text>
-      </Pressable>
-    </View>
-  );
-};
+// const ScreenB = function ({navigation, route}: PropsB) {
+//   return (
+//     <View style={styles.body}>
+//       <Text style={styles.title}>Screen B {route.params.name}</Text>
+//       <Text>
+//         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus
+//         consequuntur placeat nemo sunt ea nisi reiciendis temporibus aut
+//         praesentium corrupti officiis deleniti expedita recusandae fugiat, quas
+//         minima atque provident consectetur.
+//       </Text>
+//       <Pressable
+//         android_ripple={{color: '#fff'}}
+//         style={styles.button}
+//         onPress={() => {
+//           navigation.navigate('ScreenA', {userId: '1003'});
+//         }}>
+//         <Text>Got to the screen A</Text>
+//       </Pressable>
+//     </View>
+//   );
+// };
+const TabMaterail = createMaterialBottomTabNavigator();
 
 const ScreenC = function () {
   const {navigation, route} = useNavigation<PropsB>();
@@ -132,9 +139,13 @@ const App = () => {
   return (
     <>
       <NavigationContainer>
-        <Stack.Navigator>
+        {/* <TabMaterail.Navigator>
+          <Tab.Screen name="ScreenA" component={ScreenA} />
+          <Tab.Screen name="ScreenB" component={ScreenB} />
+        </TabMaterail.Navigator> */}
+        {/* <Stack.Navigator>
           <Stack.Screen
-            name="ScreenA"
+          name="ScreenA"
             component={ScreenA}
             initialParams={{userId: '345'}}
           />
@@ -147,10 +158,67 @@ const App = () => {
             initialParams={{name: 'Ivan '}}
           />
           <Stack.Screen name="Home" component={TextInputComp} />
-        </Stack.Navigator>
+        </Stack.Navigator> */}
+        <TabMaterail.Navigator
+          screenOptions={({route}) => ({
+            tabBarIcon({color, focused}) {
+              let iconName = '';
+              switch (route.name) {
+                case 'Home':
+                  iconName = 'image';
+                  break;
+                case 'ScreenA':
+                  iconName = 'user';
+                  break;
+                case 'ScreenB':
+                  iconName = 'id-card';
+                  break;
+                default:
+                  iconName = 'user-doctor';
+                  break;
+              }
+              return (
+                <FontAwesome5
+                  color={focused ? 'red' : 'blue'}
+                  size={focused ? 20 : 20}
+                  name={iconName}
+                />
+              );
+            },
+            tabBarLabelStyle: {
+              // color: '#00000090',
+              // color: '#00000090',
+              fontWeight: '900',
+              fontSize: 15,
+              // backgroundColor: '#456DE3',
+            },
+            tabBarActiveBackgroundColor: 'royalblue',
+            tabBarActiveTintColor: 'white',
+            tabBarInactiveTintColor: '#00000090',
+          })}
+          barStyle={{
+            backgroundColor: '#456DE320',
+          }}
+          inactiveColor="#00000090"
+          activeColor="orange">
+          <Tab.Screen
+            name="ScreenA"
+            options={{tabBarBadge: 2}}
+            component={ScreenA}
+            initialParams={{userId: '345'}}
+          />
+          <Tab.Screen
+            name="ScreenB"
+            component={ScreenB}
+            options={{
+              header: () => null,
+            }}
+            initialParams={{name: 'Ivan '}}
+          />
+          <Tab.Screen name="Home" component={TextInputComp} />
+        </TabMaterail.Navigator>
       </NavigationContainer>
-
-      <NavigationContainer>
+      {/* <NavigationContainer>
         <Tab.Navigator
           screenOptions={{
             headerStatusBarHeight: 1,
@@ -159,9 +227,9 @@ const App = () => {
           }}>
           <Tab.Screen name="ScreenC" component={ScreenC} />
           <Tab.Screen name="ScreenD" component={ScreenD} />
-          {/* <Tab.Screen name="ScreenC" component={ScreenC} /> */}
+          {/* <Tab.Screen name="ScreenC" component={ScreenC} />
         </Tab.Navigator>
-      </NavigationContainer>
+      </NavigationContainer> */}
     </>
   );
 
