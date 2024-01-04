@@ -3,18 +3,15 @@ import 'react-native-gesture-handler';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  View,
-  SafeAreaView,
-  StatusBar,
-  Text,
-  Pressable,
-} from 'react-native';
+import {StyleSheet, View, StatusBar, Text, Pressable} from 'react-native';
 import TextInputComp from './src/components/Input';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Screen} from 'react-native-screens';
+import {Screen, ScreenStackProps} from 'react-native-screens';
+import {
+  createBottomTabNavigator,
+  useBottomTabBarHeight,
+} from '@react-navigation/bottom-tabs';
 
 const Separator = () => <View style={styles.separator} />;
 type RootStackParamList = {
@@ -23,14 +20,22 @@ type RootStackParamList = {
   ScreenB: {name: string};
   Profile: {userId: string};
 };
-type PropsA = NativeStackScreenProps<RootStackParamList, 'ScreenA'>;
-type PropsB = NativeStackScreenProps<RootStackParamList, 'ScreenB'>;
+
+type RootTabParamList = {
+  ScreenC: undefined;
+  ScreenD: undefined;
+};
+const Tab = createBottomTabNavigator<RootTabParamList>();
+type PropsA = NativeStackScreenProps<RootStackParamList>;
+type PropsB = NativeStackScreenProps<RootStackParamList, 'ScreenB', 'ScreenA'>;
+type PropsTabBottomA = ScreenStackProps;
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const ScreenA = function ({navigation, route}: PropsA) {
+const ScreenA = function () {
+  const {navigation, route} = useNavigation<PropsA>();
   return (
     <View style={styles.body}>
-      <Text style={styles.title}>Screen B {route.params.userId}</Text>
+      <Text style={styles.title}>Screen B </Text>
 
       <Text>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus
@@ -43,7 +48,7 @@ const ScreenA = function ({navigation, route}: PropsA) {
         style={styles.button}
         android_ripple={{color: '#fff'}}
         onPress={() => {
-          navigation.navigate('ScreenB', {name: 'Ivan Silatsa'});
+          navigation.navigate('ScreenB', {name: 'Ivan'});
         }}>
         <Text>Got to the screen B</Text>
       </Pressable>
@@ -73,141 +78,213 @@ const ScreenB = function ({navigation, route}: PropsB) {
   );
 };
 
+const ScreenC = function () {
+  const {navigation, route} = useNavigation<PropsB>();
+  const {} = useBottomTabBarHeight();
+
+  return (
+    <View style={styles.body}>
+      <Text style={styles.title}>Screen C</Text>
+      <Text>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus
+        consequuntur placeat nemo sunt ea nisi reiciendis temporibus aut
+        praesentium corrupti officiis deleniti expedita recusandae fugiat, quas
+        minima atque provident consectetur.
+      </Text>
+      <Pressable
+        android_ripple={{color: '#fff'}}
+        style={styles.button}
+        onPress={() => {
+          navigation.navigate('ScreenA', {userId: '1003'});
+        }}>
+        <Text>Got to the screen A</Text>
+      </Pressable>
+    </View>
+  );
+};
+
+const ScreenD = function () {
+  const {navigation, route} = useNavigation<PropsB>();
+
+  return (
+    <View style={styles.body}>
+      <Text style={styles.title}>Screen D</Text>
+      <Text>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus
+        consequuntur placeat nemo sunt ea nisi reiciendis temporibus aut
+        praesentium corrupti officiis deleniti expedita recusandae fugiat, quas
+        minima atque provident consectetur.
+      </Text>
+      <Pressable
+        android_ripple={{color: '#fff'}}
+        style={styles.button}
+        onPress={() => {
+          navigation.navigate('ScreenA', {userId: '1003'});
+        }}>
+        <Text>Got to the screen A</Text>
+      </Pressable>
+    </View>
+  );
+};
+
 const App = () => {
   const [stopIndicator, setstopIndicator] = useState<boolean>(false);
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="ScreenA"
-          component={ScreenA}
-          initialParams={{userId: '345'}}
-        />
-        <Stack.Screen
-          name="ScreenB"
-          component={ScreenB}
-          options={{
-            header: () => null,
-          }}
-          initialParams={{name: 'Ivan '}}
-        />
-        <Stack.Screen name="Home" component={TextInputComp} />
-      </Stack.Navigator>
-      {/* <SafeAreaView style={styles.container1}> */}
-      {/* <TextInputComp /> */}
-      {/* <View style={styles.container}>
-        <View style={styles.text1}>
-          <Text>Text1</Text>
-        </View>
-
-        <View style={styles.text1}>
-          <Text>Text2</Text>
-        </View>
-        <View style={styles.text1}>
-          <Text>Text3</Text>
-        </View>
-      </View> */}
-      {/* <View>
-          <Text style={styles.title}>
-            The title and onPress handler are required. It is recommended to set
-            accessibilityLabel to help make your app usable by everyone.
-          </Text>
-          <Button
-            title="Press me"
-            onPress={() => Alert.alert('Simple Button pressed')}
+    <>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="ScreenA"
+            component={ScreenA}
+            initialParams={{userId: '345'}}
           />
-        </View>
-        <Separator />
-
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <TouchableOpacity
-            style={styles.monBouton}
-            onPress={() => Alert.alert('Button with adjusted color pressed')}>
-            <Text style={styles.texteBouton}>Mon Bouton</Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <Text style={styles.title}>
-            Adjust the color in a way that looks standard on each platform. On
-            iOS, the color prop controls the color of the text. On Android, the
-            color adjusts the background color of the button.
-          </Text>
-          <Button
-            title="Press me"
-            color="#f1945f"
-            onPress={() => Alert.alert('Button with adjusted color pressed')}
-          />
-        </View>
-        <Separator />
-        <View>
-          <Text style={styles.title}>
-            All interaction for the component are disabled.
-          </Text>
-          <View>
-            <Button
-              title="Press me"
-              disabled
-              onPress={() => Alert.alert('Cannot press this one')}
-            />
-          </View>
-        </View>
-        <Separator />
-        <View>
-          <Text style={styles.title}>
-            This layout strategy lets the title define the width of the button.
-          </Text>
-          <View style={styles.fixToText}>
-            <Button
-              title="Left button"
-              onPress={() => Alert.alert('Left button pressed')}
-            />
-            <Button
-              title="Right button"
-              onPress={() => Alert.alert('Right button pressed')}
-            />
-          </View>
-        </View>
-
-        <View style={{flex: 1, justifyContent: 'center'}}>
-          <Button
-            title="Stop Indiacator"
-            color="blue"
-            onPress={() => {
-              setstopIndicator(prev => !prev);
+          <Stack.Screen
+            name="ScreenB"
+            component={ScreenB}
+            options={{
+              header: () => null,
             }}
+            initialParams={{name: 'Ivan '}}
           />
-        </View>
+          <Stack.Screen name="Home" component={TextInputComp} />
+        </Stack.Navigator>
+      </NavigationContainer>
 
-        <View style={[styles.container, styles.horizontal]}>
-          {!stopIndicator ? (
-            <>
-              <ActivityIndicator size="large" />
-              <ActivityIndicator size="small" color="#0000ff" />
-              <ActivityIndicator size="large" color="#00ff00" />
-            </>
-          ) : (
-            <Text>You stopped it</Text>
-          )}
-        </View>
-
-        <StyleSheetApp />
-        <FlexBox />
-
-        <StatusBar barStyle="light-content" backgroundColor="#57446798" />
-        <View>
-          <View style={styles.body}>
-            <Text>Hello world !</Text>
-          </View>
-          <View style={styles.button}>
-            <Button
-              onPress={() => Linking.openURL('https://youtube.com')}
-              title="Link to the First App"
-            />
-          </View>
-        </View> */}
-      {/* </SafeAreaView> */}
-    </NavigationContainer>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={{
+            headerStatusBarHeight: 1,
+            tabBarShowLabel: false,
+            headerShown: false,
+          }}>
+          <Tab.Screen name="ScreenC" component={ScreenC} />
+          <Tab.Screen name="ScreenD" component={ScreenD} />
+          {/* <Tab.Screen name="ScreenC" component={ScreenC} /> */}
+        </Tab.Navigator>
+      </NavigationContainer>
+    </>
   );
+
+  // {
+  //   /* <SafeAreaView style={styles.container1}> */
+  // }
+  // {
+  //   /* <TextInputComp /> */
+  // }
+  // {
+  //   /* <View style={styles.container}>
+  //       <View style={styles.text1}>
+  //         <Text>Text1</Text>
+  //       </View>
+
+  //       <View style={styles.text1}>
+  //         <Text>Text2</Text>
+  //       </View>
+  //       <View style={styles.text1}>
+  //         <Text>Text3</Text>
+  //       </View>
+  //     </View> */
+  // }
+  // {
+  //   /* <View>
+  //         <Text style={styles.title}>
+  //           The title and onPress handler are required. It is recommended to set
+  //           accessibilityLabel to help make your app usable by everyone.
+  //         </Text>
+  //         <Button
+  //           title="Press me"
+  //           onPress={() => Alert.alert('Simple Button pressed')}
+  //         />
+  //       </View>
+  //       <Separator />
+
+  //       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+  //         <TouchableOpacity
+  //           style={styles.monBouton}
+  //           onPress={() => Alert.alert('Button with adjusted color pressed')}>
+  //           <Text style={styles.texteBouton}>Mon Bouton</Text>
+  //         </TouchableOpacity>
+  //       </View>
+  //       <View>
+  //         <Text style={styles.title}>
+  //           Adjust the color in a way that looks standard on each platform. On
+  //           iOS, the color prop controls the color of the text. On Android, the
+  //           color adjusts the background color of the button.
+  //         </Text>
+  //         <Button
+  //           title="Press me"
+  //           color="#f1945f"
+  //           onPress={() => Alert.alert('Button with adjusted color pressed')}
+  //         />
+  //       </View>
+  //       <Separator />
+  //       <View>
+  //         <Text style={styles.title}>
+  //           All interaction for the component are disabled.
+  //         </Text>
+  //         <View>
+  //           <Button
+  //             title="Press me"
+  //             disabled
+  //             onPress={() => Alert.alert('Cannot press this one')}
+  //           />
+  //         </View>
+  //       </View>
+  //       <Separator />
+  //       <View>
+  //         <Text style={styles.title}>
+  //           This layout strategy lets the title define the width of the button.
+  //         </Text>
+  //         <View style={styles.fixToText}>
+  //           <Button
+  //             title="Left button"
+  //             onPress={() => Alert.alert('Left button pressed')}
+  //           />
+  //           <Button
+  //             title="Right button"
+  //             onPress={() => Alert.alert('Right button pressed')}
+  //           />
+  //         </View>
+  //       </View>
+
+  //       <View style={{flex: 1, justifyContent: 'center'}}>
+  //         <Button
+  //           title="Stop Indiacator"
+  //           color="blue"
+  //           onPress={() => {
+  //             setstopIndicator(prev => !prev);
+  //           }}
+  //         />
+  //       </View>
+
+  //       <View style={[styles.container, styles.horizontal]}>
+  //         {!stopIndicator ? (
+  //           <>
+  //             <ActivityIndicator size="large" />
+  //             <ActivityIndicator size="small" color="#0000ff" />
+  //             <ActivityIndicator size="large" color="#00ff00" />
+  //           </>
+  //         ) : (
+  //           <Text>You stopped it</Text>
+  //         )}
+  //       </View>
+
+  //       <StyleSheetApp />
+  //       <FlexBox />
+
+  //       <StatusBar barStyle="light-content" backgroundColor="#57446798" />
+  //       <View>
+  //         <View style={styles.body}>
+  //           <Text>Hello world !</Text>
+  //         </View>
+  //         <View style={styles.button}>
+  //           <Button
+  //             onPress={() => Linking.openURL('https://youtube.com')}
+  //             title="Link to the First App"
+  //           />
+  //         </View>
+  //       </View> */
+  // }
 };
 
 const styles = StyleSheet.create({

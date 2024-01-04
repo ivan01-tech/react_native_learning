@@ -47,3 +47,47 @@ React Native CLI et Expo :
 
 Comprenez les différences entre React Native CLI et Expo, et choisissez la solution qui correspond le mieux à vos besoins.
 N'oubliez pas que la pratique régulière, la construction de projets réels et la résolution de problèmes concrets sont essentielles pour maîtriser React Native. Explorez également des cours en ligne, des tutoriels, et participez à la communauté pour rester informé des meilleures pratiques et des évolutions de la technologie.
+
+
+J'ai recement commencer
+==========================================
+
+🚀 Développement d'une Application de Gestion Scolaire Innovante! 🚀
+Je suis ravi de partager avec vous un aperçu de l'application  laquelle je travaille actuellement! 📚💻
+
+🌟 Présentation rapide :
+Notre nouvelle application vise à simplifier le quotidien des etudiants de l'universite de Douala en offrant une plateforme intuitive leurs permettant de retrouver facilement l'information dont'ils on besoin
+
+🔍 Fonctionnalités Clés :
+
+Recherche d'Informations Rapide : Étudiants, trouvez rapidement les informations dont vous avez besoin!
+- creation de Programme Hebdomadaire : les pourront Administrateurs créez et gérez facilement le programme hebdomadaire.
+- Accès aux process verbaux des session d'evaluation passe : une partie totalment dedie au telechargement et a la mise en ligne des fichiers de notes de toutes les filiers.
+
+#EduTech #InnovationÉducative #DéveloppementLogiciel
+
+�� Développement d'une Application de Gestion Scolaire Innovante ! ��
+
+Je suis ravi de partager avec vous un aperçu de l'application laquelle je travaille actuellement ! ����
+
+
+
+�� Présentation rapide :
+
+Notre nouvelle application vise à simplifier le quotidien des étudiants de l'université de Douala en offrant une plateforme intuitive leur permettant de retrouver facilement l'information dont ils ont besoin.
+
+
+
+�� Fonctionnalités :
+
+
+
+Recherche d'Informations Rapide : les étudiants pourront trouver rapidement les informations dont ils ont besoin !
+
+- création de Programme Hebdomadaire : les pourront Administrateurs créez et gérez facilement le programme hebdomadaire.
+
+- L'accès aux process verbaux des sessions d'évaluation passe : une partie totalement demie au téléchargement et a la mise en ligne des fichiers de notes de toutes les filières.
+
+
+
+#EduTech #InnovationÉducative #DéveloppementLogiciel
