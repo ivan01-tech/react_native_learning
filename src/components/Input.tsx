@@ -17,9 +17,12 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-type Props = {};
+import {RootStackParamList} from '../../App';
+import {DrawerScreenProps} from '@react-navigation/drawer';
 
-const TextInputComp = ({}: Props) => {
+type AAA = DrawerScreenProps<RootStackParamList>;
+
+const TextInputComp = ({navigation}: AAA) => {
   const [name, _setName] = useState('');
   const [showModal, setModal] = useState(false);
   const onpressHandler = function (e: GestureResponderEvent) {
@@ -157,7 +160,9 @@ const TextInputComp = ({}: Props) => {
           disabled={false}
           // underlayColor={'pink'}
           // activeOpacity={0.5}
-          onPress={onpressHandler}>
+          onPress={_e => {
+            navigation.toggleDrawer();
+          }}>
           <View style={styles.button}>
             <Text>{' TouchableHighlight '}</Text>
           </View>

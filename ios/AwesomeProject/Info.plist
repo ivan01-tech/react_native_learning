@@ -51,5 +51,36 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+	<key>uiappfonts</key>
+	<array>
+		<string>BungeeSpice-Regular.ttf</string>
+		<string>poppins-bold.ttf</string>
+		<string>poppins-extrabold.ttf</string>
+		<string>poppins-italic.ttf</string>
+		<string>poppins-medium.ttf</string>
+		<string>poppins-mediumitalic.ttf</string>
+		<string>poppins-regular.ttf</string>
+		<string>poppins-semibold.ttf</string>
+		<string>antdesign.ttf</string>
+		<string>entypo.ttf</string>
+		<string>evilicons.ttf</string>
+		<string>feather.ttf</string>
+		<string>fontawesome.ttf</string>
+		<string>fontawesome5_brands.ttf</string>
+		<string>fontawesome5_regular.ttf</string>
+		<string>fontawesome5_solid.ttf</string>
+		<string>fontisto.ttf</string>
+		<string>foundation.ttf</string>
+		<string>ionicons.ttf</string>
+		<string>materialcommunityicons.ttf</string>
+		<string>materialicons.ttf</string>
+		<string>octicons.ttf</string>
+		<string>roboto_medium.ttf</string>
+		<string>roboto.ttf</string>
+		<string>rubicon-icon-font.ttf</string>
+		<string>simplelineicons.ttf</string>
+		<string>zocial.ttf</string>
+	</array>
 </dict>
 </plist>

@@ -1,5 +1,5 @@
 // import android.os.Bundle;
-package com.FirstApp;
+package com.firstapp;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

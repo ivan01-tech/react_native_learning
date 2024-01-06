@@ -1,30 +1,32 @@
-/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import 'react-native-gesture-handler';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {StyleSheet, View, StatusBar, Text, Pressable} from 'react-native';
 import TextInputComp from './src/components/Input';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Screen, ScreenStackProps} from 'react-native-screens';
-import {
-  createBottomTabNavigator,
-  useBottomTabBarHeight,
-} from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {PaperProvider} from 'react-native-paper';
 import ScreenA from './src/screen/ScreenA';
 import ScreenB from './src/screen/ScreenB';
 import {createMaterialBottomTabNavigator} from 'react-native-paper/react-navigation';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {
+  DrawerHeaderProps,
+  createDrawerNavigator,
+} from '@react-navigation/drawer';
+import {connectToDatabase, createTables} from './src/db/db';
+import Login from './src/screen/Login';
 
+//=========================
 const Separator = () => <View style={styles.separator} />;
-type RootStackParamList = {
-  Home: undefined;
+export type RootStackParamList = {
+  Login: undefined;
   ScreenA: {userId: string};
   ScreenB: {name: string};
-  Profile: {userId: string};
 };
 
 type RootTabParamList = {
@@ -32,8 +34,8 @@ type RootTabParamList = {
   ScreenD: undefined;
 };
 const Tab = createBottomTabNavigator<RootStackParamList>();
-type PropsA = NativeStackScreenProps<RootStackParamList>;
-type PropsB = NativeStackScreenProps<RootStackParamList, 'ScreenB', 'ScreenA'>;
+export type PropsA = NativeStackScreenProps<RootStackParamList>;
+export type PropsB = NativeStackScreenProps<RootStackParamList>;
 type PropsTabBottomA = ScreenStackProps;
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -84,58 +86,49 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 //   );
 // };
 const TabMaterail = createMaterialBottomTabNavigator();
-
-const ScreenC = function () {
-  const {navigation, route} = useNavigation<PropsB>();
-  const {} = useBottomTabBarHeight();
-
-  return (
-    <View style={styles.body}>
-      <Text style={styles.title}>Screen C</Text>
-      <Text>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus
-        consequuntur placeat nemo sunt ea nisi reiciendis temporibus aut
-        praesentium corrupti officiis deleniti expedita recusandae fugiat, quas
-        minima atque provident consectetur.
-      </Text>
-      <Pressable
-        android_ripple={{color: '#fff'}}
-        style={styles.button}
-        onPress={() => {
-          navigation.navigate('ScreenA', {userId: '1003'});
-        }}>
-        <Text>Got to the screen A</Text>
-      </Pressable>
-    </View>
-  );
-};
-
-const ScreenD = function () {
-  const {navigation, route} = useNavigation<PropsB>();
-
-  return (
-    <View style={styles.body}>
-      <Text style={styles.title}>Screen D</Text>
-      <Text>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus
-        consequuntur placeat nemo sunt ea nisi reiciendis temporibus aut
-        praesentium corrupti officiis deleniti expedita recusandae fugiat, quas
-        minima atque provident consectetur.
-      </Text>
-      <Pressable
-        android_ripple={{color: '#fff'}}
-        style={styles.button}
-        onPress={() => {
-          navigation.navigate('ScreenA', {userId: '1003'});
-        }}>
-        <Text>Got to the screen A</Text>
-      </Pressable>
-    </View>
-  );
-};
+const TabTop = createMaterialTopTabNavigator();
+const Drawer = createDrawerNavigator<RootStackParamList>();
+// export type DrawerTypeParams = DrawerHeaderProps<RootStackParamList>
+// const ScreenC = function () {
+//   const {n}
+//   return (
+//     <View style={styles.body}>
+//       <Text style={styles.title}>Screen C</Text>
+//       <Text>
+//         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus
+//         consequuntur placeat nemo sunt ea nisi reiciendis temporibus aut
+//         praesentium corrupti officiis deleniti expedita recusandae fugiat, quas
+//         minima atque provident consectetur.
+//       </Text>
+//       <Pressable
+//         android_ripple={{color: '#fff'}}
+//         style={styles.button}
+//         onPress={() => {
+//           navigation.navigate('ScreenA', {userId: '1003'});
+//         }}>
+//         <Text>Got to the screen A</Text>
+//       </Pressable>
+//     </View>
+//   );
+// };
 
 const App = () => {
   const [stopIndicator, setstopIndicator] = useState<boolean>(false);
+
+  const loadData = useCallback(async () => {
+    try {
+      const db = await connectToDatabase();
+      await createTables(db);
+      console.log('db created : ', db);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
   return (
     <>
       <NavigationContainer>
@@ -157,14 +150,28 @@ const App = () => {
             }}
             initialParams={{name: 'Ivan '}}
           />
-          <Stack.Screen name="Home" component={TextInputComp} />
+          <Stack.Screen name="Login" component={TextInputComp} />
         </Stack.Navigator> */}
-        <TabMaterail.Navigator
-          screenOptions={({route}) => ({
-            tabBarIcon({color, focused}) {
+        <Drawer.Navigator
+          initialRouteName="Login"
+          screenOptions={({navigation, route}) => ({
+            drawerPosition: 'left',
+            swipeEdgeWidth: 120,
+            drawerType: 'front',
+            swipeEnabled: false,
+            headerStyle: {
+              backgroundColor: 'brown',
+            },
+            headerTintColor: '#eee',
+            overlayColor: '#00000090',
+            headerTitleAlign: 'center',
+            drawerStyle: {
+              backgroundColor: '#456DE3',
+            },
+            drawerIcon({color, focused}) {
               let iconName = '';
               switch (route.name) {
-                case 'Home':
+                case 'Login':
                   iconName = 'image';
                   break;
                 case 'ScreenA':
@@ -185,29 +192,58 @@ const App = () => {
                 />
               );
             },
-            tabBarLabelStyle: {
-              // color: '#00000090',
-              // color: '#00000090',
-              fontWeight: '900',
-              fontSize: 15,
-              // backgroundColor: '#456DE3',
-            },
-            tabBarActiveBackgroundColor: 'royalblue',
-            tabBarActiveTintColor: 'white',
-            tabBarInactiveTintColor: '#00000090',
           })}
-          barStyle={{
-            backgroundColor: '#456DE320',
-          }}
-          inactiveColor="#00000090"
-          activeColor="orange">
-          <Tab.Screen
+          // screenOptions={({route}) => ({
+          //   tabBarIcon({color, focused}) {
+          //     let iconName = '';
+          //     switch (route.name) {
+          //       case 'Login':
+          //         iconName = 'image';
+          //         break;
+          //       case 'ScreenA':
+          //         iconName = 'user';
+          //         break;
+          //       case 'ScreenB':
+          //         iconName = 'id-card';
+          //         break;
+          //       default:
+          //         iconName = 'user-doctor';
+          //         break;
+          //     }
+          //     return (
+          //       <FontAwesome5
+          //         color={focused ? 'red' : 'blue'}
+          //         size={focused ? 20 : 20}
+          //         name={iconName}
+          //       />
+          //     );
+          //   },
+          //   tabBarLabelStyle: {
+          //     // color: '#00000090',
+          //     // color: '#00000090',
+          //     fontWeight: '900',
+          //     fontSize: 15,
+          //     // backgroundColor: '#456DE3',
+          //   },
+          //   tabBarShowIcon: false,
+          //   tabBarActiveBackgroundColor: 'royalblue',
+          //   tabBarActiveTintColor: 'white',
+          //   tabBarInactiveTintColor: '#00000090',
+          // })}
+          // barStyle={{
+          //   backgroundColor: '#456DE320',
+          // }}
+          // inactiveColor="#00000090"
+          // activeColor="orange"
+        >
+          <Drawer.Screen
             name="ScreenA"
-            options={{tabBarBadge: 2}}
+            // options={{tabBarBadge: 2}}
+            options={{title: 'Custom Title A'}}
             component={ScreenA}
             initialParams={{userId: '345'}}
           />
-          <Tab.Screen
+          <Drawer.Screen
             name="ScreenB"
             component={ScreenB}
             options={{
@@ -215,8 +251,8 @@ const App = () => {
             }}
             initialParams={{name: 'Ivan '}}
           />
-          <Tab.Screen name="Home" component={TextInputComp} />
-        </TabMaterail.Navigator>
+          <Drawer.Screen name="Login" component={Login} />
+        </Drawer.Navigator>
       </NavigationContainer>
       {/* <NavigationContainer>
         <Tab.Navigator
