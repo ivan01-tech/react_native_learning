@@ -1,0 +1,262 @@
+Préparer son environnement Visual Studio Code, Xcode et Android Studio
+Maîtriser les nouveautés de la syntaxe ECMAScript 6
+Déboguer une application React Native
+Styling et Flexbox
+Exercice pratique : Réplique de IMDB
+
+Assimiler la différence entre les State et les Props
+Le cycle de vie des Components
+Les différentes méthodes pour améliorer les performances
+La meilleure manière de structurer son application React
+Fetch d'une API
+Les événements Touch
+Comprendre l'optimisation des listes
+Exercice pratique : Réplique de Meetup
+
+
+Bien choisir son Router pour gérer la Navigation
+S'imposer un code strict avec ESLint
+Typer les variables Props
+Google Maps et Apple Maps
+Dimensions et Responsive
+Exercice pratique : Réplique de Airbnb
+
+Communiquer en temp réél avec les WebSockets
+Stocker des données de manière persistente AsyncStorage
+Utiliser des Fonts personnalisées
+Exercice pratique : Créer le MVP de son choix (1/2)
+
+
+
+Il existe de nombreuses bibliothèques open-source disponibles pour React Native qui peuvent être considérées comme indispensables en fonction des besoins de votre application. Voici une liste de certaines bibliothèques populaires et largement utilisées dans l'écosystème React Native :
+
+React Navigation :
+
+Lien GitHub : React Navigation
+Description : Une bibliothèque de navigation qui offre une solution de navigation complète pour les applications React Native.
+Redux (ou context API) :
+
+Lien GitHub : Redux
+Description : Un gestionnaire d'état prévisible qui est souvent utilisé pour gérer l'état global dans les applications React Native.
+Axios :
+
+Lien GitHub : Axios
+Description : Une bibliothèque populaire pour effectuer des requêtes HTTP. Elle est souvent utilisée pour interagir avec des API.
+React Native Elements :
+
+Lien GitHub : React Native Elements
+Description : Une bibliothèque de composants UI prêts à l'emploi pour React Native.
+React Native Vector Icons :
+
+Lien GitHub : React Native Vector Icons
+Description : Une bibliothèque qui fournit des icônes vectorielles pour React Native.
+Realm :
+
+Lien GitHub : Realm
+Description : Une base de données locale qui peut être utilisée pour stocker des données sur l'appareil.
+React Native Image Picker :
+
+Lien GitHub : React Native Image Picker
+Description : Une bibliothèque pour sélectionner des images et des vidéos à partir de la bibliothèque de médias ou de l'appareil photo.
+React Native Camera :
+
+Lien GitHub : React Native Camera
+Description : Une bibliothèque pour l'intégration de la caméra dans les applications React Native.
+React Native Firebase :
+
+Lien GitHub : React Native Firebase
+Description : Une bibliothèque pour intégrer Firebase dans les applications React Native.
+React Native Gesture Handler :
+
+Lien GitHub : React Native Gesture Handler
+Description : Une bibliothèque pour gérer les gestes tactiles dans les applications React Native.
+Il est important de noter que la nécessité d'une bibliothèque peut varier en fonction des exigences spécifiques de votre projet. Avant d'ajouter une bibliothèque à votre projet, assurez-vous de comprendre ses fonctionnalités, son support actif et sa compatibilité avec votre version de React Native.
+
+
+
+MODULE 1 – CONCEPTS & SETUP & WORKFLOW
+CONCEPTS
+Architecture
+Inline CSS / Flexbox
+JSX Spécifique / Babel / ES6
+Anatomie d’un composant React
+State
+Comparatif rapide des solutions existantes
+Navigation
+Déploiement en production
+SETUP
+La stack React Native
+Npm ou Yarn ?
+Introduction à Expo
+WORKFLOW
+Dessiner une UI
+Fixer la hiérarchie des composants (lequel est parent de l’autre jusqu’à la racine)
+React-Native init
+Structuration d’un projet simple (organisation des fichiers)
+Debug sur Simulateur
+Debug sur Xcode (sur appareil ou simulateur)
+Tests avec Jest
+Archivage avec Xcode pour déploiement interne via fichier .ipa
+Déploiement avec CodePush ou AppHub
+Debug sur Simulateur, remote debugging et hot reload
+ 
+
+MODULE 2 – PREMIÈRE APP
+CONSTRUIRE SON APPLICATION EN UTILISANT DES COMPOSANTS EXTERNES
+Introduction aux composants
+Component State vs Application State
+Functional components vs Class Components
+Utilisation de composants natifs (Ex: Gmaps)
+Intégration aux APIs externes (Google Maps API via AXIOS)
+ 
+
+MODULE 3 – SECONDE APP (REDUX)
+CONSTRUIRE SON APPLICATION EN UTILISANT LA PROGRAMMATION FONCTIONNELLE
+Utilisation d’un FrameWork UI comme NativeBase (gain de productivité majeur)
+Qu’est-ce que Redux ?
+Résoudre les problèmes différemment avec Flux et Redux
+MVC pattern
+MVC problem
+Flux
+Flux deep dive
+Redux
+Redux core concepts
+Redux with React Native
+Benefits of using Redux
+Gestion de l’état (State) au niveau de l’application via Redux
+Gestion d’un formulaire
+Utilisation de l’interface utilisateur
+React NavigationFlexbox
+TouchableHighlight
+ListView
+ScrollView
+Animations
+ 
+
+CONCEPTS AVANCÉS
+Intégration à un service tiers comme Firebase 3.0 (DB temps réel de Google)
+Structuration d’un projet complexe (organisation des fichiers)
+
+
+La mise en page en React Native avec Flexbox
+Déclaration de styles
+Utilisation des styles
+L’API Stylesheet
+Les méthodes d’utilisation de l’API, ses propriétés
+Contrôle des dimensions des composants à l’écran
+Application de styles particuliers à un composant
+Combinaison, organisation et partage de styles
+Introduction à Flexbox, différences avec CSS sur le web
+Contrôle de la disposition d’éléments avec Flexbox
+Bien utiliser flexDirection, justifyContent et alignItems
+Travaux pratiques possibles : Manipulation des styles, découverte des bonnes pratiques, utilisation des différentes propriétés et valeurs de Flexbox.
+
+Architecture : Flux et Redux
+Présentation du MVC (Model-View-Controller)
+Présentation de l’architecture d’une application Flux
+Intérêts de Flux
+La librairie JavaScript Redux : actions, reducer(s), store
+Installation et implémentation de Redux
+Présentation de MobX
+Travaux pratiques possibles : Introduction à de Flux et Redux pour la gestion des états d’une application.
+
+Construire une application React Native
+Gestion des entrées textuelles de l’utilisateur
+Travail avec Touch et le Gesture Responder System
+Utilisation de composants FlatList, SectionList et ScrollView
+Définition d’une hiérarchie de composants
+Organisation de répertoire pour la structure d’un projet
+Utilisation de composants développés communautairement : les chercher et les appliquer
+Travaux pratiques possibles pendant la formation React Native : Développer une application React Native à l’aide de composants natifs et tiers, Manier Awesome React Native.
+
+Navigation et animations
+Tour d’horizon des solutions de gestion de la navigation
+Introduction à React Navigation
+Navigation entre plusieurs écrans d’une application
+Gestion de la hiérarchie de routes
+Gestion d’historique de navigation
+Le composant NavigatorIOS
+Naviguer : les options avancées
+Les APIs Animated et LayoutAnimation
+Création d’animation, configuration
+Animation d’éléments depuis une interaction tactile à l’aide de PanResponder
+Travaux pratiques possibles : Utiliser React-Navigation pour intégrer un deuxième écran dans uen application, ajouter des animations, ajouter des transitions personnalisées.
+
+Les Formulaires et la gestion des données
+Création des composants principaux d’un formulaire
+Définition d’une logique de validation
+Gestion des erreurs
+Redux-form et les solutions similaires (tcomb-form-native, react-reactive-form)
+Récupération de données à l’aide de XMLHttpRequest ou Fetch API
+Stocker ses données offline et AsyncStorage pour la persistance des données
+Les autres outils disponibles sur le marché (realm, graphQL…)
+Utilisation de Redux pour améliorer la gestion des données
+Travaux pratiques possibles lors de notre formation React Native : Développer un formulaire sur une application, y intégrer des fonctionnalités de récupération de données, intégrer une API REST, mettre en place une persistance de données.
+
+Les principaux API et modules natifs sous React Native
+Particularités d’iOS et d’Android
+L’API Geolocation pour obtenir la localisation d’un utilisateur
+Utiliser CameraRoll pour accéder aux photos et à la caméra du mobile
+Gestion des permissions
+Développement ou réutilisation d’un module natif
+Travaux pratiques possibles : Mettre à jour une application à l’aide d’APIs natives, intégrer un module natif développé par la communauté.
+
+Concepts avancés…
+Optimisation des performances d’une application
+Réaliser des tests unitaires, des tests fonctionnels
+Déployer des mises à jour à distance (Over the Air), et utilisé le CodePush pour le déploiement continu
+Publication d’une application React Native sur les stores
+Les erreurs de développement à éviter
+Les bonnes pratiques d’utilisation de React Native
+Ressources additionnelles
+Fin de la formation React Native
+
+
+Jour 1 : les fondations de React Native
+Fondation React Native
+Comprendre le fonctionnement de React Native
+Créer des interfaces utilisateur pour iOS, Android et Web
+Composants Style React Native, y compris le style Flexbox et la syntaxe de style JavaScript
+Utilisation de FlatList
+Mises en pratique :
+- Utilisez un téléphone réel pour ressentir la «façon de travailler de React Native»™
+- Découvrez l'API de React Native
+- Utilisation d'une bibliothèque de composants react-native-paper
+
+Gestion de données
+Interagissez avec des API externes avec fetch
+ react-query pour collecter, mettre en cache et mettre à jour les données de façon asynchrone
+Mise en pratique :
+Collecter des données depuis une API externe
+
+Jour 2 : les outils pour développer des applications mobiles et Web
+Écosystème
+ Eslint / Prettier
+ TypeScript: attrapez les fautes de frappe et tapez les erreurs pendant que vous écrivez le code
+Bonnes pratiques pour déboguer votre application
+Mises en pratique :
+- Mettre en place les outils pour un développement productif
+- Mettre en œuvre un flux de travail basé sur des composants avec StoryBook
+- Test Unitaire avec @testing-library/react-native
+
+react-navigation
+Comprendre et créer des workflows de navigation en utilisant les meilleures pratiques et les API de la plateforme
+Navigations imbriquées
+Flux d'authentification
+Mise en pratique :
+Faire fonctionner le routing avec une application mobile
+
+Jour 3
+Déploiement et QA
+App store d'Apple
+Google Play Store
+Mises à jour Over The Air
+Mise en pratique :
+Préparer le déploiement sur les stores
+
+Hackathon
+Récapitulatif de ce que nous avons appris
+Checklist pour démarrer un nouveau projet
+Créez votre propre produit en un jour !
+Mise en pratique :
+Présentez votre application en fin de journée au reste de la classe
